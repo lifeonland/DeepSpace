@@ -48,48 +48,6 @@ public class ImageService {
         //Content distributed under CC Attribution license
         //http://creativecommons.org/licenses/by/3.0/
         
-        Image mercury = new Image();
-        mercury.setSrc("./images/Mercury.jpg");
-        mercury.setWidth(660);
-        mercury.setHeight(660);
-        planetaries.add(mercury);
-        
-        Image venus = new Image();
-        venus.setSrc("./images/Venus.jpg");
-        venus.setWidth(660);
-        venus.setHeight(660);
-        planetaries.add(venus);
-        
-        Image mars = new Image();
-        mars.setSrc("./images/Mars.jpg");
-        mars.setWidth(660);
-        mars.setHeight(660);
-        planetaries.add(mars);
-        
-        Image moon = new Image();
-        moon.setSrc("./images/Moon.jpg");
-        moon.setWidth(660);
-        moon.setHeight(660);
-        planetaries.add(moon);
-        
-        Image uranus = new Image();
-        uranus.setSrc("./images/Uranus.jpg");
-        uranus.setWidth(660);
-        uranus.setHeight(660);
-        planetaries.add(uranus);
-        
-        Image neptune = new Image();
-        neptune.setSrc("./images/Neptune.jpg");
-        neptune.setWidth(660);
-        neptune.setHeight(660);
-        planetaries.add(neptune);
-        
-        Image pluto = new Image();
-        pluto.setSrc("./images/Pluto.jpg");
-        pluto.setWidth(660);
-        pluto.setHeight(660);
-        planetaries.add(pluto);
-        
         Image sun = new Image();
         sun.setSrc("./images/sun.png");
         sun.setWidth(660);
@@ -105,7 +63,6 @@ public class ImageService {
         earth.setHeight(512);
         planetaries.add(earth);
         
-
         Image jupiter = new Image();
         jupiter.setSrc("./images/jupiter.png");
         jupiter.setWidth(512);
