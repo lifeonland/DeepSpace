@@ -1,3 +1,3 @@
-# Visual Studio Team Services + Java
+# Azure DevOps + Java
 
 ![](./java.png)
