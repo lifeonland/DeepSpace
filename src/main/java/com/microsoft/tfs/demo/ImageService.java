@@ -122,13 +122,6 @@ public class ImageService {
         sun.setWidth(660);
         sun.setHeight(660);
         planetaries.add(sun);
-
-       
-        
-        
-        
-        
-
         
     }
 
