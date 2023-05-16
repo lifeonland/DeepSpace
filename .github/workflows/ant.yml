@@ -41,5 +41,5 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: deepspace
-        path: ./target/DeepSpace.war
+        path: ${{github.workspace}}/target
   
