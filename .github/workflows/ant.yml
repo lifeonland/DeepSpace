@@ -30,6 +30,13 @@ jobs:
     - name: Run Junit Tests
       run: mvn -B test --file pom.xml
     
+    - name: Publish Test Results
+      uses: EnricoMi/publish-unit-test-result-action@v2
+      id: test-results
+      if: always ()
+      with:
+        files: target/surefire-reports/*.xml
+    
     - name: Upload artifact
       uses: actions/upload-artifact@v3
       with:
