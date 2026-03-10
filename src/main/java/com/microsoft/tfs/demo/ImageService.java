@@ -36,7 +36,7 @@ import javax.ws.rs.core.MediaType;
 import java.util.List;
 import java.util.ArrayList;
 
-@Path("/images")
+@Path("images/")
 public class ImageService {
 
     private final static List<Image> planetaries;
@@ -49,13 +49,13 @@ public class ImageService {
         //http://creativecommons.org/licenses/by/3.0/
         
         Image mercury = new Image();
-        mercury.setSrc("./images/mercury.png");
+        mercury.setSrc("images/mercury.png");
         mercury.setWidth(1950);
         mercury.setHeight(1950);
         planetaries.add(mercury);
         
         Image venus = new Image();
-        venus.setSrc("./images/venus.png");
+        venus.setSrc("images/venus.png");
         venus.setWidth(547);
         venus.setHeight(550);
         planetaries.add(venus);
@@ -64,61 +64,61 @@ public class ImageService {
         // and remember to update the unit tests in "ImageServiceTest.java"
         
         Image earth = new Image();
-        earth.setSrc("./images/earth.png");
+        earth.setSrc("images/earth.png");
         earth.setWidth(512);
         earth.setHeight(512);
         planetaries.add(earth);
         
         Image moon = new Image();
-        moon.setSrc("./images/moon.png");
+        moon.setSrc("images/moon.png");
         moon.setWidth(308);
         moon.setHeight(360);
         planetaries.add(moon);
         
         Image mars = new Image();
-        mars.setSrc("./images/mars.png");
+        mars.setSrc("images/mars.png");
         mars.setWidth(600);
         mars.setHeight(599);
         planetaries.add(mars);
         
         Image jupiter = new Image();
-        jupiter.setSrc("./images/jupiter.png");
+        jupiter.setSrc("images/jupiter.png");
         jupiter.setWidth(512);
         jupiter.setHeight(512);
         planetaries.add(jupiter);
         
         Image saturn = new Image();
-        saturn.setSrc("./images/saturn.png");
+        saturn.setSrc("images/saturn.png");
         saturn.setWidth(1206);
         saturn.setHeight(690);
         planetaries.add(saturn);
                 
         Image uranus = new Image();
-        uranus.setSrc("./images/uranus.png");
+        uranus.setSrc("images/uranus.png");
         uranus.setWidth(1720);
         uranus.setHeight(1720);
         planetaries.add(uranus);
         
         Image neptune = new Image();
-        neptune.setSrc("./images/neptune.png");
+        neptune.setSrc("images/neptune.png");
         neptune.setWidth(598);
         neptune.setHeight(600);
         planetaries.add(neptune);
         
         Image pluto = new Image();
-        pluto.setSrc("./images/pluto.png");
+        pluto.setSrc("images/pluto.png");
         pluto.setWidth(225);
         pluto.setHeight(225);
         planetaries.add(pluto);
         
         Image meteorite = new Image();
-        meteorite.setSrc("./images/meteorite.png");
+        meteorite.setSrc("images/meteorite.png");
         meteorite.setWidth(600);
         meteorite.setHeight(600);
         planetaries.add(meteorite);
               
         Image sun = new Image();
-        sun.setSrc("./images/sun.png");
+        sun.setSrc("images/sun.png");
         sun.setWidth(660);
         sun.setHeight(660);
         planetaries.add(sun);

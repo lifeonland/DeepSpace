@@ -102,7 +102,12 @@ fsDirectives.directive('flyingStars', function($window) {
           var nextImage = scope.images[fsImgIdx % scope.images.length];
           fsImgIdx += 1;
           this.image = new Image();
-          this.image.src = nextImage.src;
+          //this.image.src = nextImage.src;
+          var contextPath = window.location.pathname.split('/')[1];
+          this.image.src = "/" + contextPath + "/" + nextImage.src;
+          this.image.onload = function() {
+          // image loaded successfully
+         };
           this.imageRatio = nextImage.width / nextImage.height;
           this.position = initialPosition(50);
           this.imgScale = 50;
