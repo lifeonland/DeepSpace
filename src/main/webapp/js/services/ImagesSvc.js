@@ -9,6 +9,7 @@
  *
  * MIT License
  *
+ * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the ""Software""), to deal in the Software without restriction,
  * including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
@@ -27,8 +28,21 @@
  * ----------------------------------------------- END OF LICENSE ------------------------------------------
  */
 flyingStarsApp.service('imagesSvc', function($resource) {
-  var imageResources = $resource('./api/images/:id');
+  var staticImages = [
+    { src: '/images/earth.png', width: 100, height: 100 },
+    { src: '/images/jupiter.png', width: 100, height: 100 },
+    { src: '/images/mars.png', width: 100, height: 100 },
+    { src: '/images/mercury.png', width: 100, height: 100 },
+    { src: '/images/meteorite.png', width: 100, height: 100 },
+    { src: '/images/moon.png', width: 100, height: 100 },
+    { src: '/images/neptune.png', width: 100, height: 100 },
+    { src: '/images/pluto.png', width: 100, height: 100 },
+    { src: '/images/saturn.png', width: 100, height: 100 },
+    { src: '/images/sun.png', width: 100, height: 100 },
+    { src: '/images/uranus.png', width: 100, height: 100 },
+    { src: '/images/venus.png', width: 100, height: 100 }
+  ];
   this.getImages = function() {
-    return imageResources.query();
+    return staticImages;
   }
 });
