@@ -58,74 +58,58 @@
         </dependency>
     </dependencies>
 
-    <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>${mvn.compiler.version}</version>
-                    <configuration>
-                        <compilerArgument>-Xlint:unchecked</compilerArgument>
-                        <source>1.8</source>
-                        <target>1.8</target>
-                    </configuration>
-                </plugin>
+<build>
 
-                <plugin>
-                    <groupId>org.mortbay.jetty</groupId>
-                    <artifactId>maven-jetty-plugin</artifactId>
-                    <version>${maven.jetty.version}</version>
-                    <configuration>
-                        <scanIntervalSeconds>5</scanIntervalSeconds>
-                        <contextPath>/</contextPath>
-                        <connectors>
-                            <connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
-                                <port>3030</port>
-                                <maxIdleTime>60000</maxIdleTime>
-                                <headerBufferSize>16384</headerBufferSize>
-                            </connector>
-                        </connectors>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <groupId>org.jacoco</groupId>
-                    <artifactId>jacoco-maven-plugin</artifactId>
-                    <version>0.8.10</version>
-                    <executions>
-                        <execution>
-                        <goals>
-                            <goal>prepare-agent</goal>
-                        </goals>
-                        </execution>
+    <pluginManagement>
+        <plugins>
 
-                        <execution>
-                        <id>report</id>
-                        <phase>test</phase>
-                        <goals>
-                            <goal>report</goal>
-                        </goals>
-                        </execution>
-                    </executions>
-</plugin>
-            </plugins>
-        </pluginManagement>
-        
-        <!-- Add this section to include all static assets in the WAR -->
-        <resources>
-            <resource>
-                <directory>src/main/webapp</directory>
-                <includes>
-                    <include>**/*.html</include>
-                    <include>**/*.css</include>
-                    <include>**/*.js</include>
-                    <include>**/*.png</include>
-                    <include>**/*.jpg</include>
-                    <include>**/*.jpeg</include>
-                    <include>**/*.gif</include>
-                </includes>
-            </resource>
-        </resources>
-        <finalName>DeepSpace</finalName>
-    </build>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${mvn.compiler.version}</version>
+                <configuration>
+                    <compilerArgument>-Xlint:unchecked</compilerArgument>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </pluginManagement>
+
+    <plugins>
+
+        <plugin>
+            <groupId>org.jacoco</groupId>
+            <artifactId>jacoco-maven-plugin</artifactId>
+            <version>0.8.10</version>
+            <executions>
+
+                <execution>
+                    <id>prepare-agent</id>
+                    <goals>
+                        <goal>prepare-agent</goal>
+                    </goals>
+                </execution>
+
+                <execution>
+                    <id>report</id>
+                    <phase>verify</phase>
+                    <goals>
+                        <goal>report</goal>
+                    </goals>
+                </execution>
+
+            </executions>
+        </plugin>
+
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>3.1.2</version>
+        </plugin>
+
+    </plugins>
+
+</build>
 
 </project>
