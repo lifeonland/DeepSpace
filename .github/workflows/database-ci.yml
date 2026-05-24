@@ -1,0 +1,35 @@
+name: Database Migration CI
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'deepspace-api/src/main/resources/db/migration/**'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'deepspace-api/src/main/resources/db/migration/**'
+
+jobs:
+  db-migration:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:15-alpine
+        env:
+          POSTGRES_DB: deepspace_db
+          POSTGRES_USER: deepspace_user
+          POSTGRES_PASSWORD: password
+        ports:
+          - 5432:5432
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+      - name: Run Flyway Migrations
+        run: |
+          cd deepspace-api
+          mvn flyway:migrate -Dflyway.url=jdbc:postgresql://localhost:5432/deepspace_db -Dflyway.user=deepspace_user -Dflyway.password=password
