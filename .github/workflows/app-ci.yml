@@ -1,4 +1,4 @@
-name: Application CI/CD
+name: 🚀 Application CI/CD
 
 on:
   push:
@@ -9,15 +9,18 @@ on:
     branches: [ main ]
     paths-ignore:
       - 'deepspace-api/src/main/resources/db/migration/**'
+  workflow_dispatch:
 
 jobs:
   quality-gates:
+    name: 🛡️ Parallel Quality Gates
     runs-on: ubuntu-latest
     strategy:
       matrix:
         job: [lint, sca, sast]
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout Code
+        uses: actions/checkout@v4
       - name: ${{ matrix.job }}
         run: |
           if [ "${{ matrix.job }}" == "lint" ]; then
@@ -29,23 +32,27 @@ jobs:
           fi
 
   build:
+    name: 🏗️ Application Build
     needs: quality-gates
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout Code
+        uses: actions/checkout@v4
       - name: Build API & UI
         run: |
           cd deepspace-api && mvn clean package -DskipTests
           cd ../deepspace-ui && npm install && npm run build
 
   analysis-and-docker:
+    name: 🐳 Analysis & Containerization
     needs: build
     runs-on: ubuntu-latest
     strategy:
       matrix:
         service: [api, ui]
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout Code
+        uses: actions/checkout@v4
       - name: Codacy Analysis
         if: matrix.service == 'api'
         uses: codacy/codacy-analysis-cli-action@master
