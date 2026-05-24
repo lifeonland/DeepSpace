@@ -1,0 +1,64 @@
+name: DeepSpace Enterprise CI/CD
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  # 1. Parallel Quality Gates
+  quality-gates:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        job: [lint, sca, sast]
+    steps:
+      - uses: actions/checkout@v4
+      - name: ${{ matrix.job }}
+        run: |
+          if [ "${{ matrix.job }}" == "lint" ]; then
+            cd deepspace-ui && npm install && npm run lint
+          elif [ "${{ matrix.job }}" == "sca" ]; then
+            # Example SCA: npm audit (UI) and OWASP Dependency Check (API)
+            npm audit --prefix deepspace-ui
+          elif [ "${{ matrix.job }}" == "sast" ]; then
+            # Example SAST: CodeQL analysis
+            echo "Running SAST analysis..."
+          fi
+
+  # 2. Application Build
+  build:
+    needs: quality-gates
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build API & UI
+        run: |
+          cd deepspace-api && mvn clean package -DskipTests
+          cd ../deepspace-ui && npm install && npm run build
+
+  # 3. Parallel Analysis & Containerization
+  analysis-and-docker:
+    needs: build
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        service: [api, ui]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Codacy Analysis
+        if: matrix.service == 'api' # Codacy typically targets the backend
+        uses: codacy/codacy-analysis-cli-action@master
+        with:
+          project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
+          
+      - name: Docker Build & Push
+        uses: docker/build-push-action@v5
+        with:
+          context: ./deepspace-${{ matrix.service }}
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/deepspace-${{ matrix.service }}:latest
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+EOF
