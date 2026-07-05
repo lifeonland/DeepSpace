@@ -1,0 +1,84 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@800&family=Orbitron:wght@600;800&family=Space+Grotesk:wght@300;400;500&display=swap');
+
+@theme {
+  --color-dark: #020205;
+  --color-cyan: #06b6d4;
+  --color-blue: #3b82f6;
+  --color-purple: #8b5cf6;
+  --color-white: #ffffff;
+  
+  --font-sans: 'Space Grotesk', sans-serif;
+  --font-heading: 'Orbitron', sans-serif;
+  --font-branding: 'Exo 2', sans-serif;
+
+  --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  --shadow-neon-cyan: 0 0 10px rgba(6, 182, 212, 0.4), 0 0 20px rgba(6, 182, 212, 0.2);
+  --shadow-neon-purple: 0 0 10px rgba(168, 85, 247, 0.4), 0 0 20px rgba(168, 85, 247, 0.2);
+}
+
+:root {
+  background-color: var(--color-dark);
+  color: var(--color-white);
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background-color: var(--color-dark);
+  min-height: 100vh;
+}
+
+/* Shooting Stars Effect */
+.shooting-star {
+  position: fixed;
+  width: 2px;
+  height: 100px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.8), transparent);
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  opacity: 0.2;
+  pointer-events: none;
+  z-index: 0;
+  animation: fall 12s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes fall { 
+  0% { transform: translateY(-50vh) translateX(-50vw) rotate(-45deg) scale(0); opacity: 0; }
+  10% { opacity: 0.8; transform: translateY(-30vh) translateX(-30vw) rotate(-45deg) scale(1); }
+  90% { opacity: 0.8; transform: translateY(80vh) translateX(80vw) rotate(-45deg) scale(1); }
+  100% { transform: translateY(100vh) translateX(100vw) rotate(-45deg) scale(0); opacity: 0; }
+}
+
+/* Rotation Animation */
+.animate-spin-slow {
+  animation: spin 20s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@layer components {
+  .logo-glow {
+    text-shadow: 0 0 15px rgba(6, 182, 212, 0.8), 0 0 5px rgba(6, 182, 212, 0.5);
+    background: linear-gradient(180deg, #ffffff 0%, #22d3ee 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .neon-text-glow {
+    text-shadow: 0 0 20px rgba(34, 211, 238, 0.6), 0 0 40px rgba(34, 211, 238, 0.3);
+  }
+  
+  .neon-text-purple {
+    text-shadow: 0 0 20px rgba(168, 85, 247, 0.6), 0 0 40px rgba(168, 85, 247, 0.3);
+  }
+
+  .glass-panel {
+    @apply bg-white/[0.02] backdrop-blur-xl border border-white/[0.08] shadow-glass hover:bg-white/[0.05] hover:border-white/[0.15] hover:shadow-neon-cyan transition-all duration-500 rounded-3xl;
+  }
+
+  .heading-font { font-family: var(--font-heading); }
+}

@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: ./deepspace-api
+      dockerfile: Dockerfile
+    container_name: deepspace-app
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://ep-odd-flower-aow75ouk-pooler.c-2.ap-southeast-1.aws.neon.tech/neondb?sslmode=require
+      - SPRING_DATASOURCE_USERNAME=neondb_owner
+      - SPRING_DATASOURCE_PASSWORD=npg_uKLa7lweI3YP
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=validate
+      - SPRING_FLYWAY_ENABLED=true
+      - SPRING_FLYWAY_LOCATIONS=classpath:db/migration
+    restart: always
+
+  frontend:
+    build:
+      context: ./deepspace-ui
+      dockerfile: Dockerfile
+    container_name: deepspace-frontend
+    ports:
+      - "4000:80"
+    depends_on:
+      - app
+    restart: always

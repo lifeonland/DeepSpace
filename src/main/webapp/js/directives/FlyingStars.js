@@ -29,6 +29,8 @@
 fsDirectives.directive('flyingStars', function($window) {
   'use strict';
 
+  console.log('🎨 Flying Stars Directive Loaded');
+
   return {
     restrict: 'EAC',
     replace: true,
@@ -39,14 +41,15 @@ fsDirectives.directive('flyingStars', function($window) {
     },
     template: '<div>' +
                 '<div class="fsCanvasContainer"> <canvas id="flyingStarsCanvas"> </canvas> </div>' +
-                '<div class="fssliderContainer" id="speedSliderContainer"> <span>Zooming Speed: </span> <span id="speedText" ng-bind="speed"></span> <div class="fsslider" id="speedSlider"/> </div>' +
-                // Uncomment the following line to add a slider for number of stars
-                '<div class="fssliderContainer" id="starsSliderContainer"> <span>Number of Stars:</span> <span id="starsText" ng-bind="stars"></span> <div class="fsslider" id="starsSlider"/> </div>' +
+              '</div>' +
+              '<div class="controls-container">' +
+                '<div class="fssliderContainer" id="speedSliderContainer"> <span>⚡ Zooming Speed</span> <span id="speedText" ng-bind="speed"></span> <div class="fsslider" id="speedSlider"/> </div>' +
+                '<div class="fssliderContainer" id="starsSliderContainer"> <span>✨ Number of Stars</span> <span id="starsText" ng-bind="stars"></span> <div class="fsslider" id="starsSlider"/> </div>' +
               '</div>',
     link: function (scope, element, attribute) {
-
-      /* Flying objects */
-      var Star = function() {
+      
+      console.log('🚀 Flying Stars Link Function Started');
+      console.log('Scope Data:', {speed: scope.speed, stars: scope.stars, images: scope.images ? scope.images.length : 0});
         //make initial star spread across the entire screen
         this.position = initialPosition(random(edgeDistance));
         this.brightness = random(100);
@@ -102,12 +105,15 @@ fsDirectives.directive('flyingStars', function($window) {
           var nextImage = scope.images[fsImgIdx % scope.images.length];
           fsImgIdx += 1;
           this.image = new Image();
-          //this.image.src = nextImage.src;
-          var contextPath = window.location.pathname.split('/')[1];
-          this.image.src = "/" + contextPath + "/" + nextImage.src;
+          // Use the src directly (now supports online URLs)
+          this.image.src = nextImage.src;
+          this.image.crossOrigin = 'anonymous';
           this.image.onload = function() {
-          // image loaded successfully
-         };
+            // image loaded successfully
+          };
+          this.image.onerror = function() {
+            console.error('Failed to load image: ' + nextImage.src);
+          };
           this.imageRatio = nextImage.width / nextImage.height;
           this.position = initialPosition(50);
           this.imgScale = 50;
@@ -253,6 +259,9 @@ fsDirectives.directive('flyingStars', function($window) {
 
       /* setup coordinates */
       var canvas = $('#flyingStarsCanvas')[0];
+      
+      console.log('🎯 Canvas Found:', canvas);
+      console.log('Canvas Dimensions:', {width: canvas ? canvas.width : 'N/A', height: canvas ? canvas.height : 'N/A'});
 
       var win = angular.element($window);
       win.bind('resize', function() {
@@ -270,7 +279,10 @@ fsDirectives.directive('flyingStars', function($window) {
       var fsImgIdx = 0;
 
       updateCanvasSize(canvas);
+      console.log('📐 Canvas Size Updated:', {width: canvas.width, height: canvas.height});
+      
       draw();
+      console.log('✅ Drawing Started');
     }
   };
 });

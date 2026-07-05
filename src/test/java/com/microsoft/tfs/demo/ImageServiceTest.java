@@ -28,7 +28,6 @@
  */
 package com.microsoft.tfs.demo;
 
-import com.microsoft.tfs.demo.ImageService;
 //import org.junit.Assert;//
 import org.junit.Before;
 import org.junit.Test;

@@ -1,54 +1,76 @@
-# Welcome to the world of Azure DevOps + Java
+# DeepSpace Observatory Portal
 
-![](DeepSpace.png)
+DeepSpace is a high-fidelity, cinematic interstellar observatory portal designed to provide real-time telemetry, planetary data, and cosmic event tracking. It combines high-end visual design with robust backend engineering to offer an immersive experience into our solar system and beyond.
 
-![](./java.png)
+## 🚀 Key Features
 
-Sample web application written in Java and uses AngularJS.
+*   **Interactive Planetary Registry**: Explore celestial bodies with high-fidelity, rotating 3D planetary models (powered by Three.js).
+*   **ISS Live Telemetry**: Real-time tracking of the International Space Station utilizing integrated Map services.
+*   **Observatory Dashboard**: Live monitoring of cosmic data including Solar Activity Indices, Orbital Dynamics, and Celestial Calendars.
+*   **Cinematic Design**: A premium, minimalist UI/UX featuring neon-cyan accents, glassmorphic interfaces, and immersive cosmic background animations.
+*   **Universal Archive**: A dynamic repository of space facts with interactive 3D flip-card experiences.
 
-## Run locally (Tomcat)
+## 🛠 Tech Stack
 
-### 1) Build the WAR
+### Frontend
+- **React** with **Vite**
+- **Tailwind CSS v4** for high-performance styling
+- **Three.js & React Three Fiber** for 3D planetary rendering
+- **Framer Motion** for cinematic UI interactions
 
-```bash
-mvn -DskipTests package
+### Backend
+- **Spring Boot** (Java) REST API
+- **PostgreSQL** Database
+- **Flyway** for database migration management
+
+## 🏗 Architecture
+DeepSpace is built as a modular, containerized application with a clear separation of concerns:
+
+- **Client-Server Architecture**: The frontend communicates with the Spring Boot backend via a RESTful API. To manage development environments, **Vite** is configured as a reverse proxy, mapping `/api` requests to `localhost:8080`.
+- **Persistence Layer**: Data modeling is handled via JPA entities mapping to a PostgreSQL instance, with version-controlled migrations via Flyway.
+- **Containerized Orchestration**: The application is managed via `docker-compose`, providing an isolated, portable, and production-reproducible environment.
+- **Async Data Flow**: Frontend UI components (Observatory, Satellite Tracker, Planets) utilize asynchronous service hooks to maintain responsiveness during data fetching.
+
+### System Diagram
+```mermaid
+graph TD
+    User((User)) -->|HTTPS| UI[React UI / Vite]
+    UI -->|/api/*| Proxy{Vite Proxy}
+    Proxy -->|REST API| API[Spring Boot API]
+    API -->|JPA/Hibernate| DB[(PostgreSQL)]
+    
+    subgraph Containerization
+        UI
+        API
+        DB
+    end
 ```
 
-This produces `target/DeepSpace.war`.
+## 🚀 Getting Started
 
-### 2) Deploy to Tomcat
+### Local Development
+1. Clone the repository: `git clone <repo-url>`
+2. Start the services using Docker Compose:
+   ```bash
+   docker-compose up -d
+   ```
+3. Navigate to `deepspace-ui` and install dependencies:
+   ```bash
+   cd deepspace-ui
+   npm install
+   npm run dev
+   ```
+4. Access the portal at `http://localhost:5173/`
 
-Use Tomcat 9.x (Tomcat 10+ switched to `jakarta.*` APIs and won’t run this `javax.*` app without migration).
+### API Configuration
+The backend runs on `localhost:8080`. Ensure PostgreSQL is running on the default port 5432 via Docker.
 
-This app expects to run at the root context path (it references assets like `/images/...`), so deploy it as `ROOT`.
+**API Documentation**: You can access the interactive Swagger UI at [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html).
 
-```bash
-export CATALINA_HOME=/path/to/apache-tomcat-9.x
+## 📜 Documentation
+- [Project Structure](./deepspace-api/PROJECT_STRUCTURE.md)
+- [Quickstart Guide](./deepspace-api/QUICKSTART.md)
+- [Refactoring History](./REFACTORING_SUMMARY.md)
 
-# stop Tomcat if already running
-"$CATALINA_HOME/bin/shutdown.sh" || true
-
-# deploy as ROOT (remove the default ROOT app first if present)
-rm -rf "$CATALINA_HOME/webapps/ROOT" "$CATALINA_HOME/webapps/ROOT.war"
-cp target/DeepSpace.war "$CATALINA_HOME/webapps/ROOT.war"
-
-# start Tomcat in the foreground (preferred for local dev)
-"$CATALINA_HOME/bin/catalina.sh" run
-```
-
-Open:
-- `http://localhost:8080/`
-- API check: `http://localhost:8080/api/images`
-
-Logs:
-- `$CATALINA_HOME/logs/catalina.out`
-
-## Quick run (Jetty via Maven)
-
-If you just want to run the app without installing Tomcat:
-
-```bash
-mvn jetty:run
-```
-
-Then open `http://localhost:3030/`.
+---
+*DeepSpace Observatory — Navigating the Unknown.*

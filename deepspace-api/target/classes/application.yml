@@ -1,0 +1,48 @@
+spring:
+  application:
+    name: deepspace-api
+  
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/deepspace_db}
+    username: ${SPRING_DATASOURCE_USERNAME:deepspace_user}
+    password: ${SPRING_DATASOURCE_PASSWORD:deepspace_password}
+    driver-class-name: org.postgresql.Driver
+  
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+        use_sql_comments: true
+    show-sql: false
+  
+#spring:
+#  flyway:
+#    locations: classpath:db/migration
+#    baseline-on-migrate: true
+
+logging:
+  level:
+    root: INFO
+    com.deepspace: DEBUG
+    org.springframework.web: INFO
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+
+server:
+  port: 8080
+  servlet:
+    context-path: /
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: always

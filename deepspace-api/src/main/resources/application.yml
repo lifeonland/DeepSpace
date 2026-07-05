@@ -3,10 +3,9 @@ spring:
     name: deepspace-api
   
   datasource:
-    # Neon Connection String
-    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://ep-odd-flower-aow75ouk.c-2.ap-southeast-1.aws.neon.tech/neondb?sslmode=require}
-    username: ${SPRING_DATASOURCE_USERNAME:neondb_owner}
-    password: ${SPRING_DATASOURCE_PASSWORD:npg_uKLa7lweI3YP}
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
     driver-class-name: org.postgresql.Driver
   
   jpa:
@@ -22,9 +21,9 @@ spring:
   flyway:
     enabled: true
     baseline-on-migrate: true
-    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://ep-odd-flower-aow75ouk.c-2.ap-southeast-1.aws.neon.tech/neondb?sslmode=require}
-    user: ${SPRING_DATASOURCE_USERNAME:neondb_owner}
-    password: ${SPRING_DATASOURCE_PASSWORD:npg_uKLa7lweI3YP}
+    url: ${SPRING_DATASOURCE_URL}
+    user: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
   
 logging:
   level:

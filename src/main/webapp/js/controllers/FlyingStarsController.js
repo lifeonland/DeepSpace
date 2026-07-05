@@ -27,13 +27,32 @@
  * ----------------------------------------------- END OF LICENSE ------------------------------------------
  */
 flyingStarsApp.controller('FlyingStarsController',
-    function FlyingStarsContoller($scope, imagesSvc) {
+    function FlyingStarsContoller($scope, imagesSvc, factsSvc, $interval) {
         'use strict';
 
+        console.log('🪐 FlyingStarsController Started');
+        console.log('Images Service:', imagesSvc);
+        console.log('Facts Service:', factsSvc);
+
         $scope.settings = {
-          speed: 50,
-          numOfStars: 250,
+          speed: 60,
+          numOfStars: 200,
           images: imagesSvc.getImages()
         }
+
+        console.log('📊 Settings:', $scope.settings);
+
+        // Initialize with a random fact
+        $scope.currentFact = factsSvc.getRandomFact();
+        console.log('📝 Initial Fact:', $scope.currentFact);
+
+        // Rotate facts every 6 seconds
+        $interval(function() {
+          $scope.currentFact = factsSvc.getRandomFact();
+          console.log('📝 New Fact:', $scope.currentFact);
+        }, 6000);
     }
 );
+
+
+
